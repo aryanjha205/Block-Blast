@@ -73,20 +73,51 @@ body {
 }
 
 .hud-cube {
-  width: 28px;
-  height: 28px;
+  width: 34px;
+  height: 38px;
   display: block;
   position: relative;
-  transform: rotate(30deg) skewY(-5deg);
-  border-radius: 4px;
-  background: linear-gradient(135deg, #50e889 0 50%, #13be5c 50%);
-  box-shadow: 3px 5px 7px rgba(10, 173, 77, .18);
+  filter: drop-shadow(1px 3px 3px rgba(7, 155, 66, .18));
 }
+.hud-cube::before,
+.hud-cube::after,
 .hud-cube i {
   position: absolute;
-  inset: 7px 0 0 13px;
-  border-left: 2px solid rgba(255,255,255,.55);
-  border-top: 2px solid rgba(255,255,255,.55);
+  content: '';
+  display: block;
+}
+
+/* Isometric BlockBlast-style cube: top, left, and right faces. */
+.hud-cube::before {
+  inset: 0 0 auto;
+  height: 18px;
+  clip-path: polygon(50% 0, 100% 25%, 50% 50%, 0 25%);
+  background: linear-gradient(135deg, #6bf39c 0%, #2bdd72 72%);
+}
+
+.hud-cube::after {
+  inset: 9px auto 0 0;
+  width: 17px;
+  clip-path: polygon(0 0, 100% 50%, 100% 100%, 0 50%);
+  background: linear-gradient(135deg, #22cc64, #08a94b);
+}
+
+.hud-cube i {
+  inset: 9px 0 0 auto;
+  width: 17px;
+  clip-path: polygon(100% 0, 0 50%, 0 100%, 100% 50%);
+  background: linear-gradient(135deg, #21c962, #0bb450);
+}
+
+.hud-cube i::after {
+  content: '';
+  position: absolute;
+  top: 8px;
+  left: 2px;
+  width: 7px;
+  height: 5px;
+  border-radius: 1px;
+  background: rgba(255,255,255,.32);
 }
 
 .hud-name {
@@ -207,7 +238,7 @@ canvas {
 @media (max-width: 430px) {
   .hud { padding: 0 9px; }
   .hud-logo { gap: 4px; }
-  .hud-cube { width: 22px; height: 22px; }
+  .hud-cube { width: 26px; height: 29px; }
   .hud-name { font-size: 1.05rem; }
   .hud-stats { height: 46px; }
   .hud-stat { padding: 0 6px; }
@@ -278,7 +309,7 @@ canvas {
 
   /* Card wrapper on desktop */
   .hud {
-    width: 600px;
+    width: min(600px, calc(100vw - 32px));
     border-radius: 20px 20px 0 0;
     border: 2px solid var(--green-line);
     border-bottom: none;
@@ -286,17 +317,16 @@ canvas {
   }
 
   .game-wrap {
-    flex: none;
-    padding: 20px 0 0;
-    width: 600px;
+    flex: 1;
+    padding: 20px 16px 0;
+    width: min(600px, calc(100vw - 32px));
     height: auto;
   }
 
   canvas {
-    width: 600px;
-    height: 850px;
-    border-radius: 28px 28px 0 0;
-    box-shadow: 0 16px 48px rgba(0,150,60,0.12);
+    width: min(600px, calc(100vw - 32px));
+    height: auto;
+    max-height: calc(100dvh - var(--hud-h) - 20px);
   }
 }
 
