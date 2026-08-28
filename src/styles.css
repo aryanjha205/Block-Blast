@@ -203,49 +203,62 @@ canvas {
   z-index: 50;
   right: max(12px, var(--si-right));
   bottom: max(12px, var(--si-bottom));
-  width: min(280px, calc(100vw - 24px));
+  width: min(330px, calc(100vw - 24px));
 }
 
 .ad-banner {
   position: relative;
   display: flex;
   align-items: center;
-  gap: 10px;
-  min-height: 68px;
-  padding: 9px 34px 9px 10px;
-  border: 1px solid #d8f0e1;
-  border-radius: 18px;
-  background: rgba(255, 255, 255, .96);
-  box-shadow: 0 8px 24px rgba(18, 128, 70, .14);
+  gap: 14px;
+  min-height: 132px;
+  overflow: hidden;
+  padding: 18px 42px 18px 18px;
+  border: 1px solid #cdeed9;
+  border-radius: 24px;
+  background:
+    radial-gradient(circle at 92% 12%, rgba(30, 210, 106, .28), transparent 28%),
+    linear-gradient(135deg, #ffffff 0%, #e9fff0 100%);
+  box-shadow: 0 12px 30px rgba(18, 128, 70, .16);
   color: #214735;
   text-decoration: none;
 }
 
 .ad-banner__image {
-  flex: 0 0 46px;
-  width: 46px;
-  height: 46px;
-  border: 2px solid #55d887;
-  border-radius: 14px;
+  flex: 0 0 76px;
+  width: 76px;
+  height: 76px;
+  border: 3px solid rgba(255, 255, 255, .9);
+  border-radius: 21px;
   object-fit: cover;
-  background: #effbf3;
+  background: #dff9e8;
+  box-shadow: 0 7px 16px rgba(10, 164, 72, .18);
 }
 
 .ad-banner__body { min-width: 0; }
 .ad-banner__title {
+  display: -webkit-box;
   overflow: hidden;
   color: #214735;
-  font: 800 .84rem/1.2 var(--font);
-  text-overflow: ellipsis;
-  white-space: nowrap;
+  font: 900 1rem/1.2 var(--font);
+  -webkit-box-orient: vertical;
+  -webkit-line-clamp: 3;
 }
-.ad-banner__meta { margin-top: 3px; color: #789587; font: 700 .67rem var(--font); }
+.ad-banner__meta {
+  display: inline-block;
+  margin-top: 9px;
+  padding: 4px 8px;
+  border-radius: 99px;
+  background: #d4f8df;
+  color: #318456;
+  font: 800 .64rem var(--font);
+}
 .ad-banner__close {
   position: absolute;
-  top: 5px;
-  right: 7px;
-  width: 23px;
-  height: 23px;
+  top: 9px;
+  right: 9px;
+  width: 26px;
+  height: 26px;
   border: 0;
   border-radius: 50%;
   background: #f0faf3;
@@ -255,7 +268,7 @@ canvas {
   cursor: pointer;
 }
 
-@media (max-height: 740px) {
+@media (max-height: 560px) {
   #ad-platform-panel { display: none; }
 }
 

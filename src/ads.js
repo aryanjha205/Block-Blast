@@ -62,7 +62,7 @@ function renderAd() {
 }
 
 async function loadAds() {
-  if (!panel || matchMedia("(max-height: 740px)").matches) return;
+  if (!panel || matchMedia("(max-height: 560px)").matches) return;
   try {
     const response = await fetch(ADS_ENDPOINT, { signal: AbortSignal.timeout(5000) });
     const payload = await response.json();

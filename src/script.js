@@ -352,27 +352,6 @@ function drawGameHeader() {
   ctx.textAlign = "center";
   ctx.textBaseline = "middle";
 
-  ctx.shadowColor = "rgba(31, 138, 82, 0.12)";
-  ctx.shadowBlur = 18;
-  ctx.shadowOffsetY = 5;
-  ctx.fillStyle = "#ffffff";
-  ctx.beginPath();
-  ctx.arc(82, 60, 34, 0, Math.PI * 2);
-  ctx.fill();
-  ctx.beginPath();
-  ctx.arc(518, 60, 34, 0, Math.PI * 2);
-  ctx.fill();
-  ctx.shadowColor = "transparent";
-  ctx.strokeStyle = "#e5f8ec";
-  ctx.lineWidth = 2;
-  ctx.beginPath();
-  ctx.arc(82, 60, 25, 0, Math.PI * 2);
-  ctx.stroke();
-  ctx.beginPath();
-  ctx.arc(518, 60, 25, 0, Math.PI * 2);
-  ctx.stroke();
-  ctx.restore();
-
   ctx.fillStyle = "#13c969";
   ctx.font = "900 34px Outfit, sans-serif";
   ctx.fillText("?", 82, 60);
@@ -392,6 +371,7 @@ function drawGameHeader() {
   ctx.fillStyle = "#10c962";
   ctx.font = "900 47px Outfit, sans-serif";
   ctx.fillText(String(Math.max(bestScore, 400)), 300, 100);
+  ctx.restore();
 }
 
 gameLoop();
