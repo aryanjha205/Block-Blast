@@ -25,13 +25,6 @@ export const BLOCK_SHAPES = [
     [1],
     [1]
   ],
-  [
-    [1],
-    [1],
-    [1],
-    [1]
-  ],
-
   // Squares / rectangles
   [
     [1, 1],

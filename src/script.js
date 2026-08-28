@@ -36,8 +36,8 @@ const settingsMenu = document.getElementById("settingsMenu");
 const settingsHelp = document.getElementById("settingsHelp");
 const settingsReset = document.getElementById("settingsReset");
 
-const TRAY_Y = 720;
-const TRAY_BLOCK_SIZE = 42;
+const TRAY_Y = 700;
+const TRAY_BLOCK_SIZE = 36;
 const TOTAL_BLOCKS = 3;
 const BLOCK_SPACING = 171;
 let availableBlocks = [];

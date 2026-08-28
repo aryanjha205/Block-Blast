@@ -182,7 +182,8 @@ export function createTrayBlocks({
         ((TOTAL_BLOCKS - 1) * BLOCK_SPACING) / 2 +
         i * BLOCK_SPACING -
         blockWidth / 2,
-      y: TRAY_Y,
+      // Center each shape in its tray card so it never looks clipped.
+      y: TRAY_Y + (116 - blockHeight) / 2,
       color: getRandomColor(),
       active: true,
       originalIndex: i,
