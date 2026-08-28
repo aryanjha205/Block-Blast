@@ -2,7 +2,7 @@
 <html lang="en">
   <head>
     <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover" />
 
     <!-- Primary Meta -->
     <title>Block Blast — Puzzle Game</title>
@@ -33,37 +33,40 @@
     <!-- Google Fonts -->
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@400;600;700;800&display=swap" rel="stylesheet" />
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@400;600;700;800;900&display=swap" rel="stylesheet" />
 
-    <script type="module" crossorigin src="/assets/index-CW_iuxf7.js"></script>
-    <link rel="stylesheet" crossorigin href="/assets/index-CK0qTcDv.css">
+    <script type="module" crossorigin src="/assets/index-Cnz-ja8e.js"></script>
+    <link rel="stylesheet" crossorigin href="/assets/index-DKVxidLm.css">
   <link rel="manifest" href="/manifest.webmanifest"><script id="vite-plugin-pwa:register-sw" src="/registerSW.js"></script></head>
   <body>
-    <header class="game-header">
-      <h1 class="game-title">
-        <span class="title-block title-b">B</span><span class="title-block title-l">L</span><span class="title-block title-o">O</span><span class="title-block title-c">C</span><span class="title-block title-k">K</span>
-        <span class="title-space"> </span>
-        <span class="title-block title-bl">B</span><span class="title-block title-la">L</span><span class="title-block title-as">A</span><span class="title-block title-st">S</span><span class="title-block title-t2">T</span>
-      </h1>
-    </header>
 
-    <main class="game-area">
-      <canvas id="gameCanvas" width="600" height="600" aria-label="Block Blast game board"></canvas>
-
-      <aside class="display" aria-label="Game stats">
-        <div class="stat-card" id="score-card">
+    <!-- Top Bar -->
+    <header class="top-bar">
+      <div class="logo">
+        <span class="logo-dot"></span>
+        <span class="logo-text">Block<span class="logo-accent">Blast</span></span>
+      </div>
+      <div class="stats-row">
+        <div class="stat" id="score-card">
           <span class="stat-label">Score</span>
           <input type="text" readonly id="score" value="0" aria-label="Current score" />
         </div>
-        <div class="stat-card combo-card" id="combo-card">
+        <div class="stat-divider"></div>
+        <div class="stat" id="combo-card">
           <span class="stat-label">Combo</span>
           <input type="text" readonly id="combo" value="0" aria-label="Current combo" />
         </div>
-        <div class="stat-card" id="best-card">
+        <div class="stat-divider"></div>
+        <div class="stat" id="best-card">
           <span class="stat-label">Best</span>
           <input type="text" readonly id="bestScore" value="0" aria-label="Best score" />
         </div>
-      </aside>
+      </div>
+    </header>
+
+    <!-- Canvas Area -->
+    <main class="canvas-wrap">
+      <canvas id="gameCanvas" width="600" height="600" aria-label="Block Blast game board"></canvas>
     </main>
 
   </body>

@@ -228,11 +228,11 @@ function updateScore(linesCleared) {
 }
 
 function pulseScore() {
-  const card = document.getElementById("score-card");
-  card.classList.remove("score-pulse");
-  // Force reflow to restart animation
-  void card.offsetWidth;
-  card.classList.add("score-pulse");
+  const input = document.getElementById("score");
+  if (!input) return;
+  input.classList.remove("score-pulse");
+  void input.offsetWidth; // force reflow to restart animation
+  input.classList.add("score-pulse");
 }
 
 function updateDisplay() {
