@@ -3,69 +3,53 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover" />
-
-    <!-- Primary Meta -->
-    <title>Block Blast — Puzzle Game</title>
-    <meta name="description" content="Drag and drop colorful blocks to fill rows and columns. Clear lines, build combos, and beat your high score in Block Blast!" />
-    <meta name="keywords" content="block blast, puzzle game, blocks, tetris, browser game" />
-    <meta name="author" content="Block Blast" />
-
-    <!-- PWA -->
+    <title>Block Blast</title>
+    <meta name="description" content="Drag and drop colorful blocks to fill rows and columns. Clear lines, build combos, beat your high score!" />
     <meta name="theme-color" content="#00c853" />
     <meta name="mobile-web-app-capable" content="yes" />
     <meta name="apple-mobile-web-app-capable" content="yes" />
     <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
     <meta name="apple-mobile-web-app-title" content="Block Blast" />
     <link rel="apple-touch-icon" href="/icons/icon-192.png" />
-
-    <!-- Open Graph -->
     <meta property="og:title" content="Block Blast — Puzzle Game" />
-    <meta property="og:description" content="Drag and drop colorful blocks to fill rows and columns. Clear lines, build combos, and beat your high score!" />
+    <meta property="og:description" content="Drag and drop colorful blocks, clear lines, build combos!" />
     <meta property="og:type" content="website" />
     <meta property="og:image" content="/icons/icon-512.png" />
-
-    <!-- Twitter Card -->
-    <meta name="twitter:card" content="summary_large_image" />
-    <meta name="twitter:title" content="Block Blast — Puzzle Game" />
-    <meta name="twitter:description" content="Drag and drop colorful blocks to fill rows and columns. Clear lines, build combos!" />
-    <meta name="twitter:image" content="/icons/icon-512.png" />
-
-    <!-- Google Fonts -->
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@400;600;700;800;900&display=swap" rel="stylesheet" />
-
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@500;700;800;900&display=swap" rel="stylesheet" />
     <link rel="stylesheet" href="./src/styles.css" />
   </head>
   <body>
 
-    <!-- Top Bar -->
-    <header class="top-bar">
-      <div class="logo">
-        <span class="logo-dot"></span>
-        <span class="logo-text">Block<span class="logo-accent">Blast</span></span>
+    <!-- HUD Bar -->
+    <header class="hud">
+      <div class="hud-logo">
+        <span class="hud-dot"></span>
+        <span class="hud-name">Block<b>Blast</b></span>
       </div>
-      <div class="stats-row">
-        <div class="stat" id="score-card">
-          <span class="stat-label">Score</span>
-          <input type="text" readonly id="score" value="0" aria-label="Current score" />
+
+      <div class="hud-stats">
+        <div class="hud-stat" id="score-card">
+          <span class="hud-stat-label">SCORE</span>
+          <input type="text" readonly id="score" value="0" />
         </div>
-        <div class="stat-divider"></div>
-        <div class="stat" id="combo-card">
-          <span class="stat-label">Combo</span>
-          <input type="text" readonly id="combo" value="0" aria-label="Current combo" />
+        <div class="hud-sep"></div>
+        <div class="hud-stat" id="combo-card">
+          <span class="hud-stat-label">COMBO</span>
+          <input type="text" readonly id="combo" value="0" />
         </div>
-        <div class="stat-divider"></div>
-        <div class="stat" id="best-card">
-          <span class="stat-label">Best</span>
-          <input type="text" readonly id="bestScore" value="0" aria-label="Best score" />
+        <div class="hud-sep"></div>
+        <div class="hud-stat" id="best-card">
+          <span class="hud-stat-label">BEST</span>
+          <input type="text" readonly id="bestScore" value="0" />
         </div>
       </div>
     </header>
 
-    <!-- Canvas Area -->
-    <main class="canvas-wrap">
-      <canvas id="gameCanvas" width="600" height="600" aria-label="Block Blast game board"></canvas>
+    <!-- Game Canvas — fills everything below HUD -->
+    <main class="game-wrap">
+      <canvas id="gameCanvas" width="600" height="600"></canvas>
     </main>
 
     <script type="module" src="./src/script.js"></script>

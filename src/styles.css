@@ -1,245 +1,256 @@
 /* ===================================================
-   Block Blast — Phone-first White + Parrot Green UI
+   Block Blast — Maximum Canvas Phone UI
+   White + Parrot Green  |  Mobile-first
    =================================================== */
 
 :root {
-  --green:        #00c853;
-  --green-dark:   #00a041;
-  --green-deeper: #007a30;
-  --green-light:  #f0fff8;
-  --green-border: #c4ead6;
+  --green:       #00c853;
+  --green-dark:  #00a041;
+  --green-deep:  #006b2b;
+  --green-tint:  #edfff5;
+  --green-line:  #b8e8cc;
 
-  --bg:           #f4f9f6;
-  --white:        #ffffff;
-  --text-head:    #0b2e1a;
-  --text-sub:     #3d7a57;
-  --text-muted:   #8aaa98;
+  --white:       #ffffff;
+  --bg:          #f3f8f5;
+  --text:        #0b2e1a;
+  --text-sub:    #3a7055;
+  --text-muted:  #8aaa98;
 
   --font: 'Outfit', system-ui, sans-serif;
-  --ease: cubic-bezier(0.4, 0, 0.2, 1);
 
-  /* Safe area (notch / home bar support) */
-  --safe-top:    env(safe-area-inset-top,    0px);
-  --safe-bottom: env(safe-area-inset-bottom, 0px);
-  --safe-left:   env(safe-area-inset-left,   0px);
-  --safe-right:  env(safe-area-inset-right,  0px);
+  /* HUD height — keep it small so canvas gets max space */
+  --hud-h: 52px;
+
+  /* Safe area insets (notch / home bar) */
+  --si-top:    env(safe-area-inset-top,    0px);
+  --si-bottom: env(safe-area-inset-bottom, 0px);
+  --si-left:   env(safe-area-inset-left,   0px);
+  --si-right:  env(safe-area-inset-right,  0px);
 }
 
 /* ── Reset ─────────────────────────────────────────── */
 *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
-html, body { height: 100%; }
+html { height: 100%; }
 
 body {
-  /* Fill the whole screen — no scroll */
-  height: 100dvh;          /* dynamic viewport height for mobile keyboards */
+  /* Lock to full viewport — zero scroll */
+  height: 100dvh;
   display: flex;
   flex-direction: column;
   overflow: hidden;
-
   font-family: var(--font);
   background: var(--bg);
-  color: var(--text-head);
+  color: var(--text);
 
-  /* Padding for notch / home-bar */
-  padding-top:    var(--safe-top);
-  padding-bottom: var(--safe-bottom);
-  padding-left:   var(--safe-left);
-  padding-right:  var(--safe-right);
-
-  /* Subtle radial green tint */
-  background-image:
-    radial-gradient(ellipse 80% 35% at 50% 0%, rgba(0,200,83,0.09) 0%, transparent 70%);
+  /* Honour notch / home bar */
+  padding-top:    var(--si-top);
+  padding-left:   var(--si-left);
+  padding-right:  var(--si-right);
+  padding-bottom: var(--si-bottom);
 }
 
-/* ── Top Bar ────────────────────────────────────────── */
-.top-bar {
+/* ── HUD Bar ────────────────────────────────────────── */
+.hud {
   flex-shrink: 0;
+  height: var(--hud-h);
   display: flex;
   align-items: center;
   justify-content: space-between;
-  gap: 12px;
-  padding: 10px 16px 10px;
+  padding: 0 14px;
   background: var(--white);
-  border-bottom: 1.5px solid var(--green-border);
-  box-shadow: 0 2px 12px rgba(0,160,65,0.09);
+  border-bottom: 2px solid var(--green-line);
+  box-shadow: 0 2px 16px rgba(0, 160, 65, 0.10);
+  z-index: 10;
 }
 
 /* Logo */
-.logo {
+.hud-logo {
   display: flex;
   align-items: center;
-  gap: 7px;
+  gap: 6px;
   flex-shrink: 0;
 }
 
-.logo-dot {
-  width: 10px;
-  height: 10px;
+.hud-dot {
+  width: 9px;
+  height: 9px;
   border-radius: 50%;
   background: var(--green);
-  box-shadow: 0 0 8px rgba(0,200,83,0.55);
-  flex-shrink: 0;
+  box-shadow: 0 0 8px rgba(0, 200, 83, 0.7);
 }
 
-.logo-text {
-  font-size: 1.15rem;
-  font-weight: 800;
-  letter-spacing: 0.02em;
-  color: var(--text-head);
+.hud-name {
+  font-size: 1.1rem;
+  font-weight: 700;
+  color: var(--text);
+  letter-spacing: 0.01em;
   line-height: 1;
 }
 
-.logo-accent {
+.hud-name b {
+  font-weight: 900;
   color: var(--green);
 }
 
-/* Stats Row */
-.stats-row {
+/* Stats */
+.hud-stats {
   display: flex;
   align-items: center;
-  gap: 0;
-  background: var(--green-light);
-  border: 1.5px solid var(--green-border);
-  border-radius: 12px;
+  background: var(--green-tint);
+  border: 1.5px solid var(--green-line);
+  border-radius: 10px;
   overflow: hidden;
-  flex: 1;
-  max-width: 300px;
+  height: 36px;
 }
 
-.stat {
-  flex: 1;
-  padding: 6px 8px;
-  text-align: center;
-  min-width: 0;
+.hud-stat {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 0 12px;
+  height: 100%;
+  line-height: 1;
 }
 
-.stat-divider {
+.hud-sep {
   width: 1.5px;
-  height: 28px;
-  background: var(--green-border);
+  height: 22px;
+  background: var(--green-line);
   flex-shrink: 0;
 }
 
-.stat-label {
-  display: block;
-  font-size: 0.58rem;
+.hud-stat-label {
+  font-size: 0.52rem;
   font-weight: 700;
   letter-spacing: 0.1em;
-  text-transform: uppercase;
   color: var(--text-muted);
-  line-height: 1;
-  margin-bottom: 2px;
+  margin-bottom: 1px;
 }
 
-.stat input {
-  display: block;
-  width: 100%;
+.hud-stat input {
   border: none;
   background: transparent;
   outline: none;
   font-family: var(--font);
-  font-size: 1rem;
+  font-size: 0.95rem;
   font-weight: 800;
-  color: var(--text-head);
+  color: var(--text);
   text-align: center;
   cursor: default;
-  line-height: 1;
-  min-width: 0;
+  width: 52px;
+  padding: 0;
 }
 
-#score-card input  { color: var(--green-deeper); }
-#combo-card input  { color: var(--green-dark); }
-#best-card input   { color: var(--text-sub); }
+#score-card input { color: var(--green-deep); }
+#combo-card input { color: var(--green-dark); }
+#best-card  input { color: var(--text-sub);   }
 
-/* Score pulse on line clear */
+/* Score pulse on clear */
 @keyframes scorePulse {
   0%   { transform: scale(1); }
-  45%  { transform: scale(1.18); }
+  50%  { transform: scale(1.25); color: var(--green); }
   100% { transform: scale(1); }
 }
-.score-pulse { animation: scorePulse 0.38s cubic-bezier(0.34,1.56,0.64,1); }
+.score-pulse { animation: scorePulse 0.4s cubic-bezier(0.34, 1.56, 0.64, 1); }
 
-/* ── Canvas Area ─────────────────────────────────────── */
-.canvas-wrap {
-  flex: 1;                  /* takes ALL remaining vertical space */
+/* ── Game Wrap — canvas fills this ──────────────────── */
+.game-wrap {
+  flex: 1;              /* takes all remaining height */
   display: flex;
   align-items: center;
   justify-content: center;
-  padding: 10px;
-  min-height: 0;            /* important: lets flex child shrink */
+  padding: 6px;
+  min-height: 0;        /* allow flex child to shrink */
+  background: var(--bg);
 }
 
+/*
+ * Canvas = largest square that fits the remaining space.
+ *
+ * Remaining height  = 100dvh - safe-top - safe-bottom - hud(52px) - padding(12px)
+ * Remaining width   = 100vw  - safe-left - safe-right - padding(12px)
+ *
+ * We take the minimum of both so it always fits without cropping.
+ */
 canvas {
-  /*
-   * Be the largest square that fits the available space.
-   * min() picks the smaller of viewport-width vs remaining height.
-   */
-  width:  min(
-            calc(100vw - 20px),
-            calc(100dvh - var(--safe-top) - var(--safe-bottom) - 70px - 20px)
-          );
+  width: min(
+    calc(100vw  - var(--si-left) - var(--si-right)  - 12px),
+    calc(100dvh - var(--si-top)  - var(--si-bottom) - var(--hud-h) - 12px)
+  );
   height: min(
-            calc(100vw - 20px),
-            calc(100dvh - var(--safe-top) - var(--safe-bottom) - 70px - 20px)
-          );
+    calc(100vw  - var(--si-left) - var(--si-right)  - 12px),
+    calc(100dvh - var(--si-top)  - var(--si-bottom) - var(--hud-h) - 12px)
+  );
 
-  border-radius: 18px;
-  border: 2px solid var(--green-border);
+  display: block;
+  border-radius: 20px;
+  border: 2px solid var(--green-line);
   background: #ffffff;
   box-shadow:
-    0 8px 32px rgba(0,150,60,0.14),
-    0 2px 8px  rgba(0,150,60,0.08);
-  display: block;
+    0 12px 48px rgba(0, 150, 60, 0.16),
+    0  4px 16px rgba(0, 150, 60, 0.10),
+    0  0   0 4px rgba(0, 200, 83, 0.07) inset;
+
+  /* Critical for touch drag — prevents page scroll while dragging blocks */
+  touch-action: none;
   image-rendering: pixelated;
-  touch-action: none;       /* prevent scroll hijack while dragging */
+  -webkit-tap-highlight-color: transparent;
 }
 
-/* ── Desktop override ────────────────────────────────── */
+/* ── Desktop / Tablet ────────────────────────────────── */
 @media (min-width: 700px) {
   body {
     height: 100vh;
     align-items: center;
     justify-content: center;
     gap: 0;
-    background-image:
-      radial-gradient(ellipse 60% 50% at 50% 0%, rgba(0,200,83,0.10) 0%, transparent 70%);
+    background:
+      radial-gradient(ellipse 70% 50% at 50% 0%, rgba(0,200,83,0.08) 0%, transparent 70%),
+      var(--bg);
   }
 
-  .top-bar {
-    width: 560px;
-    border-radius: 18px 18px 0 0;
+  /* Card wrapper on desktop */
+  .hud {
+    width: 520px;
+    border-radius: 20px 20px 0 0;
+    border: 2px solid var(--green-line);
     border-bottom: none;
-    box-shadow: 0 -2px 12px rgba(0,160,65,0.07);
+    box-shadow: 0 -4px 20px rgba(0,160,65,0.08);
   }
 
-  .canvas-wrap {
+  .game-wrap {
     flex: none;
     padding: 0;
+    width: 520px;
+    height: 520px;
   }
 
   canvas {
-    width: 500px;
-    height: 500px;
-    border-radius: 0 0 18px 18px;
+    width: 520px;
+    height: 520px;
+    border-radius: 0 0 20px 20px;
+    border: 2px solid var(--green-line);
     border-top: none;
+    box-shadow: 0 16px 48px rgba(0,150,60,0.18);
   }
 }
 
-/* ── Game Over Modal ─────────────────────────────────── */
+/* ── Game Over — bottom sheet modal ─────────────────── */
 .modal-overlay {
   position: fixed;
   inset: 0;
   display: flex;
-  align-items: flex-end;      /* slides up from bottom on phone */
+  align-items: flex-end;
   justify-content: center;
-  background: rgba(5, 30, 15, 0.55);
-  backdrop-filter: blur(8px);
-  -webkit-backdrop-filter: blur(8px);
+  background: rgba(4, 22, 10, 0.6);
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
   opacity: 0;
   pointer-events: none;
-  transition: opacity 0.3s ease;
-  z-index: 100;
-  padding: 0 0 var(--safe-bottom);
+  transition: opacity 0.28s ease;
+  z-index: 200;
+  padding: 0 0 var(--si-bottom);
 }
 
 .modal-overlay.active {
@@ -248,76 +259,90 @@ canvas {
 }
 
 .modal {
+  width: 100%;
+  max-width: 520px;
   background: var(--white);
   border-radius: 28px 28px 0 0;
-  padding: 8px 28px 36px;
-  width: 100%;
-  max-width: 500px;
-  box-shadow: 0 -8px 40px rgba(0,100,40,0.18);
+  padding: 0 24px calc(28px + var(--si-bottom));
+  box-shadow: 0 -12px 48px rgba(0, 100, 40, 0.22);
   text-align: center;
-  transform: translateY(100%);
-  transition: transform 0.4s cubic-bezier(0.34, 1.56, 0.64, 1);
+  transform: translateY(110%);
+  transition: transform 0.42s cubic-bezier(0.34, 1.56, 0.64, 1);
 }
 
-.modal-overlay.active .modal {
-  transform: translateY(0);
-}
+.modal-overlay.active .modal { transform: translateY(0); }
 
 /* Drag handle */
 .modal::before {
   content: '';
   display: block;
-  width: 40px;
+  width: 44px;
   height: 4px;
   border-radius: 99px;
-  background: var(--green-border);
-  margin: 12px auto 24px;
+  background: var(--green-line);
+  margin: 14px auto 20px;
+}
+
+/* Emoji icon */
+.modal::after {
+  content: '💥';
+  display: block;
+  font-size: 3rem;
+  margin-bottom: 8px;
 }
 
 .modal-title {
-  font-size: 1.9rem;
+  font-size: 2rem;
   font-weight: 900;
+  color: var(--text);
   letter-spacing: 0.01em;
-  color: var(--text-head);
-  margin-bottom: 6px;
+  margin-bottom: 4px;
 }
 
 .modal-score {
-  font-size: 0.9rem;
-  color: var(--text-sub);
-  margin-bottom: 28px;
+  font-size: 0.88rem;
+  color: var(--text-muted);
+  margin-bottom: 24px;
 }
 
 .modal-score span {
   display: block;
-  font-size: 3rem;
+  font-size: 3.5rem;
   font-weight: 900;
   color: var(--green);
   line-height: 1.1;
-  margin-top: 4px;
+  letter-spacing: -0.02em;
 }
 
 .modal-button {
+  display: block;
   width: 100%;
-  padding: 16px 0;
+  padding: 17px;
   border: none;
-  border-radius: 14px;
-  background: linear-gradient(135deg, var(--green) 0%, var(--green-dark) 100%);
+  border-radius: 16px;
+  background: linear-gradient(135deg, #00e676 0%, var(--green-dark) 100%);
   color: #fff;
   font-family: var(--font);
-  font-size: 1.05rem;
+  font-size: 1.1rem;
   font-weight: 800;
-  letter-spacing: 0.03em;
+  letter-spacing: 0.04em;
   cursor: pointer;
-  box-shadow: 0 6px 20px rgba(0,200,83,0.38);
-  transition: transform 0.18s var(--ease), box-shadow 0.18s var(--ease), filter 0.18s;
+  box-shadow:
+    0 6px 24px rgba(0, 200, 83, 0.4),
+    0 2px 8px  rgba(0, 200, 83, 0.2);
+  transition:
+    transform 0.16s ease,
+    filter   0.16s ease,
+    box-shadow 0.16s ease;
   -webkit-tap-highlight-color: transparent;
 }
 
-.modal-button:hover  { transform: translateY(-2px); filter: brightness(1.05); box-shadow: 0 10px 28px rgba(0,200,83,0.45); }
-.modal-button:active { transform: translateY(0);    filter: brightness(0.96); }
-
-/* ── Scrollbar ────────────────────────────────────────── */
-::-webkit-scrollbar { width: 4px; }
-::-webkit-scrollbar-track { background: var(--bg); }
-::-webkit-scrollbar-thumb { background: var(--green-border); border-radius: 99px; }
+.modal-button:hover  {
+  transform: translateY(-2px);
+  filter: brightness(1.06);
+  box-shadow: 0 10px 32px rgba(0, 200, 83, 0.5);
+}
+.modal-button:active {
+  transform: translateY(1px);
+  filter: brightness(0.95);
+}
