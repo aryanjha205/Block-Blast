@@ -14,6 +14,9 @@ export function getGridOffset(canvas) {
 }
 
 export function drawGrid(ctx, canvas, grid) {
+  // White canvas background
+  ctx.fillStyle = "#ffffff";
+  ctx.fillRect(0, 0, canvas.width, canvas.height);
   ctx.clearRect(0, 0, canvas.width, canvas.height);
 
   const offset = getGridOffset(canvas);
@@ -23,12 +26,22 @@ export function drawGrid(ctx, canvas, grid) {
       const px = offset.x + x * CELL_SIZE;
       const py = offset.y + y * CELL_SIZE;
 
-      ctx.strokeStyle = "#1b0101fd";
+      // Empty cell — light green fill
+      ctx.fillStyle = "#f4fdf8";
+      ctx.fillRect(px, py, CELL_SIZE, CELL_SIZE);
+
+      // Grid lines — light parrot green
+      ctx.strokeStyle = "#c8ead8";
+      ctx.lineWidth = 1;
       ctx.strokeRect(px, py, CELL_SIZE, CELL_SIZE);
 
       if (grid[y][x]) {
         ctx.fillStyle = grid[y][x];
-        ctx.fillRect(px, py, CELL_SIZE, CELL_SIZE);
+        ctx.fillRect(px + 1, py + 1, CELL_SIZE - 2, CELL_SIZE - 2);
+        // Subtle dark border on filled blocks
+        ctx.strokeStyle = "rgba(0,0,0,0.12)";
+        ctx.lineWidth = 1;
+        ctx.strokeRect(px + 1, py + 1, CELL_SIZE - 2, CELL_SIZE - 2);
       }
     }
   }
@@ -47,22 +60,23 @@ export function drawBlock(
   ctx.save();
   ctx.globalAlpha = alpha;
   ctx.fillStyle = color;
-  ctx.strokeStyle = "#1b0101fd";
+  ctx.strokeStyle = "rgba(0,0,0,0.12)";
+  ctx.lineWidth = 1;
 
   for (let y = 0; y < block.length; y++) {
     for (let x = 0; x < block[y].length; x++) {
       if (block[y][x]) {
         ctx.fillRect(
-          startX + x * cellSize,
-          startY + y * cellSize,
-          cellSize,
-          cellSize,
+          startX + x * cellSize + 1,
+          startY + y * cellSize + 1,
+          cellSize - 2,
+          cellSize - 2,
         );
         ctx.strokeRect(
-          startX + x * cellSize,
-          startY + y * cellSize,
-          cellSize,
-          cellSize,
+          startX + x * cellSize + 1,
+          startY + y * cellSize + 1,
+          cellSize - 2,
+          cellSize - 2,
         );
       }
     }
@@ -77,7 +91,8 @@ export function drawGhostBlock(ctx, block, gridX, gridY, canvas, alpha = 0.5 , c
   ctx.save();
   ctx.globalAlpha = alpha;
   ctx.fillStyle = color;
-  ctx.strokeStyle = "#1b0101fd";
+  ctx.strokeStyle = "rgba(0,0,0,0.10)";
+  ctx.lineWidth = 1;
 
   for (let y = 0; y < block.length; y++) {
     for (let x = 0; x < block[y].length; x++) {
@@ -85,8 +100,8 @@ export function drawGhostBlock(ctx, block, gridX, gridY, canvas, alpha = 0.5 , c
         const px = offset.x + (gridX + x) * CELL_SIZE;
         const py = offset.y + (gridY + y) * CELL_SIZE;
 
-        ctx.fillRect(px, py, CELL_SIZE, CELL_SIZE);
-        ctx.strokeRect(px, py, CELL_SIZE, CELL_SIZE);
+        ctx.fillRect(px + 1, py + 1, CELL_SIZE - 2, CELL_SIZE - 2);
+        ctx.strokeRect(px + 1, py + 1, CELL_SIZE - 2, CELL_SIZE - 2);
       }
     }
   }

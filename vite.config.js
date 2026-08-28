@@ -11,8 +11,8 @@ export default defineConfig({
         short_name: "BlockBlast",
         description:
           "A fun puzzle game — drag and drop blocks to fill and clear lines!",
-        theme_color: "#0f0f1a",
-        background_color: "#0f0f1a",
+        theme_color: "#00c853",
+        background_color: "#f5f9f6",
         display: "standalone",
         orientation: "portrait-primary",
         scope: "/",
