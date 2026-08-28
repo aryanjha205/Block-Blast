@@ -34,12 +34,13 @@ html { height: 100%; }
 
 body {
   /* Lock to full viewport — zero scroll */
-  height: 100dvh;
+  min-height: 100dvh;
   display: flex;
   flex-direction: column;
-  overflow: hidden;
+  overflow-x: hidden;
+  overflow-y: auto;
   font-family: var(--font);
-  background: #f9fdfb;
+  background: linear-gradient(180deg, #f3fbf6 0, #ffffff 190px);
   color: var(--text);
 
   /* Honour notch / home bar */
@@ -166,13 +167,13 @@ body {
 
 /* ── Game Wrap — canvas fills this ──────────────────── */
 .game-wrap {
-  flex: 1;
+  flex: 0 0 auto;
   display: flex;
   align-items: flex-start;
   justify-content: center;
   padding: 24px 12px 0;
   min-height: 0;        /* allow flex child to shrink */
-  background: #f9fdfb;
+  background: transparent;
 }
 
 /*
@@ -187,14 +188,14 @@ canvas {
   /* A fixed visual card width prevents oversized boards on wide phones. */
   width: min(430px, calc(100vw - var(--si-left) - var(--si-right) - 24px));
   height: auto;
-  max-height: calc(100dvh - var(--si-top) - var(--si-bottom) - var(--hud-h) - 24px);
+  aspect-ratio: 600 / 850;
 
   display: block;
-  border-radius: 28px 28px 0 0;
-  border: 1px solid #edf8f1;
-  background: #ffffff;
-  box-shadow:
-    0 5px 26px rgba(0, 150, 60, 0.10);
+  /* Grid and tray cards have their own surfaces: no oversized empty panel. */
+  border-radius: 0;
+  border: 0;
+  background: transparent;
+  box-shadow: none;
 
   /* Critical for touch drag — prevents page scroll while dragging blocks */
   touch-action: none;
