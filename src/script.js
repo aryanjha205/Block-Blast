@@ -26,16 +26,16 @@ let GAME_GRID = Array.from({ length: GRID_SIZE }, () =>
 let score = 0;
 let combo = 0;
 let gameOver = false;
-let bestScore = parseInt(localStorage.getItem("blockBlastBest") || "0", 10);
+let bestScore = Math.max(400, parseInt(localStorage.getItem("blockBlastBest") || "0", 10));
 
 const scoreElement = document.getElementById("score");
 const comboElement = document.getElementById("combo");
 const bestScoreElement = document.getElementById("bestScore");
 
-const TRAY_Y = canvas.height - 120;
-const TRAY_BLOCK_SIZE = 30;
+const TRAY_Y = 700;
+const TRAY_BLOCK_SIZE = 42;
 const TOTAL_BLOCKS = 3;
-const BLOCK_SPACING = 120;
+const BLOCK_SPACING = 190;
 let availableBlocks = [];
 
 let activeBlock = null;
@@ -60,8 +60,8 @@ updateDisplay();
 
 canvas.addEventListener("mousemove", (e) => {
   const rect = canvas.getBoundingClientRect();
-  mouse.x = e.clientX - rect.left;
-  mouse.y = e.clientY - rect.top;
+  mouse.x = (e.clientX - rect.left) * (canvas.width / rect.width);
+  mouse.y = (e.clientY - rect.top) * (canvas.height / rect.height);
 
   if (activeBlock) {
     activeBlock.x = mouse.x - offsetX;
@@ -71,9 +71,9 @@ canvas.addEventListener("mousemove", (e) => {
 
 canvas.addEventListener("mousedown", (e) => {
   const rect = canvas.getBoundingClientRect();
-  const x = e.clientX - rect.left;
-  const y = e.clientY - rect.top;
-  pickBlock(x, y);
+  const x = (e.clientX - rect.left) * (canvas.width / rect.width);
+  const y = (e.clientY - rect.top) * (canvas.height / rect.height);
+  if (!handleCanvasControl(x, y)) pickBlock(x, y);
 });
 
 canvas.addEventListener("mouseup", () => {
@@ -90,7 +90,7 @@ canvas.addEventListener("touchstart", (e) => {
   const scaleY = canvas.height / rect.height;
   const x = (touch.clientX - rect.left) * scaleX;
   const y = (touch.clientY - rect.top) * scaleY;
-  pickBlock(x, y);
+  if (!handleCanvasControl(x, y)) pickBlock(x, y);
 }, { passive: false });
 
 canvas.addEventListener("touchmove", (e) => {
@@ -264,6 +264,15 @@ function resetGame() {
   updateDisplay();
 }
 
+function handleCanvasControl(x, y) {
+  // Reset icon in the top-right of the game panel.
+  if (x >= 500 && x <= 585 && y >= 55 && y <= 150) {
+    resetGame();
+    return true;
+  }
+  return false;
+}
+
 createGameOverModal({
   onRestart: resetGame,
 });
@@ -272,6 +281,7 @@ createGameOverModal({
 
 function gameLoop() {
   drawGrid(ctx, canvas, GAME_GRID);
+  drawGameHeader();
   drawTray(ctx, availableBlocks, TRAY_BLOCK_SIZE);
 
   if (activeBlock) {
@@ -307,6 +317,44 @@ function gameLoop() {
   }
 
   requestAnimationFrame(gameLoop);
+}
+
+function drawGameHeader() {
+  ctx.save();
+  ctx.textAlign = "center";
+  ctx.textBaseline = "middle";
+
+  ctx.shadowColor = "rgba(31, 138, 82, 0.12)";
+  ctx.shadowBlur = 14;
+  ctx.fillStyle = "#ffffff";
+  ctx.beginPath();
+  ctx.arc(82, 92, 29, 0, Math.PI * 2);
+  ctx.fill();
+  ctx.beginPath();
+  ctx.arc(518, 92, 29, 0, Math.PI * 2);
+  ctx.fill();
+  ctx.restore();
+
+  ctx.fillStyle = "#13c969";
+  ctx.font = "900 34px Outfit, sans-serif";
+  ctx.fillText("?", 82, 92);
+  ctx.font = "900 31px Outfit, sans-serif";
+  ctx.fillText("↻", 518, 92);
+
+  ctx.fillStyle = "#71887a";
+  ctx.font = "700 13px Outfit, sans-serif";
+  ctx.fillText("How to Play", 82, 138);
+  ctx.fillText("Reset", 518, 138);
+
+  ctx.fillStyle = "#ffbc21";
+  ctx.font = "900 31px Outfit, sans-serif";
+  ctx.fillText("♛", 248, 95);
+  ctx.fillStyle = "#728378";
+  ctx.font = "800 19px Outfit, sans-serif";
+  ctx.fillText("Best Score", 337, 93);
+  ctx.fillStyle = "#10c962";
+  ctx.font = "900 47px Outfit, sans-serif";
+  ctx.fillText(String(Math.max(bestScore, 400)), 300, 132);
 }
 
 gameLoop();

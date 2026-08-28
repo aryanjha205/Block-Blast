@@ -18,15 +18,15 @@
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@500;700;800;900&display=swap" rel="stylesheet" />
-    <script type="module" crossorigin src="/assets/index-CncLKhdk.js"></script>
-    <link rel="stylesheet" crossorigin href="/assets/index-C6yTzO8E.css">
+    <script type="module" crossorigin src="/assets/index-BESEVRmM.js"></script>
+    <link rel="stylesheet" crossorigin href="/assets/index-BHoWfHIx.css">
   <link rel="manifest" href="/manifest.webmanifest"><script id="vite-plugin-pwa:register-sw" src="/registerSW.js"></script></head>
   <body>
 
     <!-- HUD Bar -->
     <header class="hud">
       <div class="hud-logo">
-        <span class="hud-dot"></span>
+        <span class="hud-cube"><i></i></span>
         <span class="hud-name">Block<b>Blast</b></span>
       </div>
 
@@ -46,11 +46,12 @@
           <input type="text" readonly id="bestScore" value="0" />
         </div>
       </div>
+      <button class="settings-button" type="button" aria-label="Game settings">&#9881;</button>
     </header>
 
     <!-- Game Canvas — fills everything below HUD -->
     <main class="game-wrap">
-      <canvas id="gameCanvas" width="600" height="600"></canvas>
+      <canvas id="gameCanvas" width="600" height="850" aria-label="Block Blast game board"></canvas>
     </main>
 
   </body>

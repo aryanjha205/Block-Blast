@@ -19,7 +19,7 @@
   --font: 'Outfit', system-ui, sans-serif;
 
   /* HUD height — keep it small so canvas gets max space */
-  --hud-h: 52px;
+  --hud-h: 80px;
 
   /* Safe area insets (notch / home bar) */
   --si-top:    env(safe-area-inset-top,    0px);
@@ -39,7 +39,7 @@ body {
   flex-direction: column;
   overflow: hidden;
   font-family: var(--font);
-  background: var(--bg);
+  background: #f9fdfb;
   color: var(--text);
 
   /* Honour notch / home bar */
@@ -56,10 +56,10 @@ body {
   display: flex;
   align-items: center;
   justify-content: space-between;
-  padding: 0 14px;
+  padding: 0 16px;
   background: var(--white);
-  border-bottom: 2px solid var(--green-line);
-  box-shadow: 0 2px 16px rgba(0, 160, 65, 0.10);
+  border-bottom: 1px solid #d8eee1;
+  box-shadow: 0 2px 12px rgba(0, 120, 55, 0.08);
   z-index: 10;
 }
 
@@ -71,17 +71,26 @@ body {
   flex-shrink: 0;
 }
 
-.hud-dot {
-  width: 9px;
-  height: 9px;
-  border-radius: 50%;
-  background: var(--green);
-  box-shadow: 0 0 8px rgba(0, 200, 83, 0.7);
+.hud-cube {
+  width: 28px;
+  height: 28px;
+  display: block;
+  position: relative;
+  transform: rotate(30deg) skewY(-5deg);
+  border-radius: 4px;
+  background: linear-gradient(135deg, #50e889 0 50%, #13be5c 50%);
+  box-shadow: 3px 5px 7px rgba(10, 173, 77, .18);
+}
+.hud-cube i {
+  position: absolute;
+  inset: 7px 0 0 13px;
+  border-left: 2px solid rgba(255,255,255,.55);
+  border-top: 2px solid rgba(255,255,255,.55);
 }
 
 .hud-name {
-  font-size: 1.1rem;
-  font-weight: 700;
+  font-size: 1.38rem;
+  font-weight: 800;
   color: var(--text);
   letter-spacing: 0.01em;
   line-height: 1;
@@ -100,7 +109,8 @@ body {
   border: 1.5px solid var(--green-line);
   border-radius: 10px;
   overflow: hidden;
-  height: 36px;
+  height: 54px;
+  border-radius: 12px;
 }
 
 .hud-stat {
@@ -108,20 +118,20 @@ body {
   flex-direction: column;
   align-items: center;
   justify-content: center;
-  padding: 0 12px;
+  padding: 0 10px;
   height: 100%;
   line-height: 1;
 }
 
 .hud-sep {
   width: 1.5px;
-  height: 22px;
+  height: 35px;
   background: var(--green-line);
   flex-shrink: 0;
 }
 
 .hud-stat-label {
-  font-size: 0.52rem;
+  font-size: 0.58rem;
   font-weight: 700;
   letter-spacing: 0.1em;
   color: var(--text-muted);
@@ -133,12 +143,12 @@ body {
   background: transparent;
   outline: none;
   font-family: var(--font);
-  font-size: 0.95rem;
+  font-size: 1.22rem;
   font-weight: 800;
   color: var(--text);
   text-align: center;
   cursor: default;
-  width: 52px;
+  width: 48px;
   padding: 0;
 }
 
@@ -156,13 +166,13 @@ body {
 
 /* ── Game Wrap — canvas fills this ──────────────────── */
 .game-wrap {
-  flex: 1;              /* takes all remaining height */
+  flex: 1;
   display: flex;
   align-items: center;
   justify-content: center;
-  padding: 6px;
+  padding: 24px 10px 0;
   min-height: 0;        /* allow flex child to shrink */
-  background: var(--bg);
+  background: #f9fdfb;
 }
 
 /*
@@ -174,28 +184,33 @@ body {
  * We take the minimum of both so it always fits without cropping.
  */
 canvas {
-  width: min(
-    calc(100vw  - var(--si-left) - var(--si-right)  - 12px),
-    calc(100dvh - var(--si-top)  - var(--si-bottom) - var(--hud-h) - 12px)
-  );
-  height: min(
-    calc(100vw  - var(--si-left) - var(--si-right)  - 12px),
-    calc(100dvh - var(--si-top)  - var(--si-bottom) - var(--hud-h) - 12px)
-  );
+  width: min(100%, 600px);
+  height: auto;
 
   display: block;
-  border-radius: 20px;
-  border: 2px solid var(--green-line);
+  border-radius: 28px 28px 0 0;
+  border: 1px solid #edf8f1;
   background: #ffffff;
   box-shadow:
-    0 12px 48px rgba(0, 150, 60, 0.16),
-    0  4px 16px rgba(0, 150, 60, 0.10),
-    0  0   0 4px rgba(0, 200, 83, 0.07) inset;
+    0 5px 26px rgba(0, 150, 60, 0.10);
 
   /* Critical for touch drag — prevents page scroll while dragging blocks */
   touch-action: none;
   image-rendering: pixelated;
   -webkit-tap-highlight-color: transparent;
+}
+
+.settings-button {
+  flex: 0 0 38px;
+  width: 38px;
+  height: 38px;
+  border: 0;
+  border-radius: 50%;
+  background: #fff;
+  color: var(--green);
+  font-size: 1.45rem;
+  line-height: 1;
+  box-shadow: 0 2px 12px rgba(0, 150, 60, .15);
 }
 
 /* ── Desktop / Tablet ────────────────────────────────── */
@@ -212,7 +227,7 @@ canvas {
 
   /* Card wrapper on desktop */
   .hud {
-    width: 520px;
+    width: 600px;
     border-radius: 20px 20px 0 0;
     border: 2px solid var(--green-line);
     border-bottom: none;
@@ -221,18 +236,16 @@ canvas {
 
   .game-wrap {
     flex: none;
-    padding: 0;
-    width: 520px;
-    height: 520px;
+    padding: 20px 0 0;
+    width: 600px;
+    height: auto;
   }
 
   canvas {
-    width: 520px;
-    height: 520px;
-    border-radius: 0 0 20px 20px;
-    border: 2px solid var(--green-line);
-    border-top: none;
-    box-shadow: 0 16px 48px rgba(0,150,60,0.18);
+    width: 600px;
+    height: 850px;
+    border-radius: 28px 28px 0 0;
+    box-shadow: 0 16px 48px rgba(0,150,60,0.12);
   }
 }
 

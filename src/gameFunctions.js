@@ -1,7 +1,7 @@
 import { getRandomColor } from "./blocks";
 
 export const GRID_SIZE = 10;
-export const CELL_SIZE = 30;
+export const CELL_SIZE = 50;
 
 // Grid Functions
 export function getGridOffset(canvas) {
@@ -9,7 +9,7 @@ export function getGridOffset(canvas) {
   const gridHeight = GRID_SIZE * CELL_SIZE;
   return {
     x: (canvas.width - gridWidth) / 2,
-    y: (canvas.height - gridHeight) / 2 - 50,
+    y: 175,
   };
 }
 
@@ -20,6 +20,16 @@ export function drawGrid(ctx, canvas, grid) {
   ctx.clearRect(0, 0, canvas.width, canvas.height);
 
   const offset = getGridOffset(canvas);
+  const gridWidth = GRID_SIZE * CELL_SIZE;
+  const gridHeight = GRID_SIZE * CELL_SIZE;
+
+  ctx.save();
+  ctx.shadowColor = "rgba(25, 191, 99, 0.19)";
+  ctx.shadowBlur = 15;
+  ctx.fillStyle = "#e4faed";
+  roundedRect(ctx, offset.x - 7, offset.y - 7, gridWidth + 14, gridHeight + 14, 24);
+  ctx.fill();
+  ctx.restore();
 
   for (let y = 0; y < GRID_SIZE; y++) {
     for (let x = 0; x < GRID_SIZE; x++) {
@@ -27,11 +37,11 @@ export function drawGrid(ctx, canvas, grid) {
       const py = offset.y + y * CELL_SIZE;
 
       // Empty cell — light green fill
-      ctx.fillStyle = "#f4fdf8";
+      ctx.fillStyle = "#fbfefc";
       ctx.fillRect(px, py, CELL_SIZE, CELL_SIZE);
 
       // Grid lines — light parrot green
-      ctx.strokeStyle = "#c8ead8";
+      ctx.strokeStyle = "#d4f0df";
       ctx.lineWidth = 1;
       ctx.strokeRect(px, py, CELL_SIZE, CELL_SIZE);
 
@@ -45,6 +55,11 @@ export function drawGrid(ctx, canvas, grid) {
       }
     }
   }
+}
+
+function roundedRect(ctx, x, y, width, height, radius) {
+  ctx.beginPath();
+  ctx.roundRect(x, y, width, height, radius);
 }
 
 // Block Drawing Functions
@@ -111,6 +126,25 @@ export function drawGhostBlock(ctx, block, gridX, gridY, canvas, alpha = 0.5 , c
 
 // Tray Functions
 export function drawTray(ctx, availableBlocks, TRAY_BLOCK_SIZE) {
+  const cardWidth = 155;
+  const cardHeight = 116;
+  const cardY = 680;
+  const cardXs = [52, 223, 394];
+
+  ctx.save();
+  ctx.shadowColor = "rgba(31, 138, 82, 0.10)";
+  ctx.shadowBlur = 12;
+  ctx.shadowOffsetY = 4;
+  ctx.fillStyle = "#ffffff";
+  ctx.strokeStyle = "#e4f6eb";
+  ctx.lineWidth = 2;
+  for (const x of cardXs) {
+    roundedRect(ctx, x, cardY, cardWidth, cardHeight, 18);
+    ctx.fill();
+    ctx.stroke();
+  }
+  ctx.restore();
+
   for (const block of availableBlocks) {
     if (block.active) {
       drawBlock(
