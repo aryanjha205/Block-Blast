@@ -1,7 +1,7 @@
 import { getRandomColor } from "./blocks";
 
 export const GRID_SIZE = 10;
-export const CELL_SIZE = 50;
+export const CELL_SIZE = 51;
 
 // Grid Functions
 export function getGridOffset(canvas) {
@@ -9,7 +9,7 @@ export function getGridOffset(canvas) {
   const gridHeight = GRID_SIZE * CELL_SIZE;
   return {
     x: (canvas.width - gridWidth) / 2,
-    y: 175,
+    y: 148,
   };
 }
 
@@ -128,7 +128,7 @@ export function drawGhostBlock(ctx, block, gridX, gridY, canvas, alpha = 0.5 , c
 export function drawTray(ctx, availableBlocks, TRAY_BLOCK_SIZE) {
   const cardWidth = 155;
   const cardHeight = 116;
-  const cardY = 680;
+  const cardY = 700;
   const cardXs = [52, 223, 394];
 
   ctx.save();

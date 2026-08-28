@@ -14,7 +14,7 @@ import {
   createTrayBlocks,
 } from "./gameFunctions.js";
 import { BLOCK_SHAPES } from "./blocks.js";
-import { createGameOverModal, showModal } from "./modal.js";
+import { createGameOverModal, showHowToPlay, showModal } from "./modal.js";
 
 const canvas = document.getElementById("gameCanvas");
 const ctx = canvas.getContext("2d");
@@ -31,11 +31,15 @@ let bestScore = Math.max(400, parseInt(localStorage.getItem("blockBlastBest") ||
 const scoreElement = document.getElementById("score");
 const comboElement = document.getElementById("combo");
 const bestScoreElement = document.getElementById("bestScore");
+const settingsButton = document.getElementById("settingsButton");
+const settingsMenu = document.getElementById("settingsMenu");
+const settingsHelp = document.getElementById("settingsHelp");
+const settingsReset = document.getElementById("settingsReset");
 
-const TRAY_Y = 700;
+const TRAY_Y = 720;
 const TRAY_BLOCK_SIZE = 42;
 const TOTAL_BLOCKS = 3;
-const BLOCK_SPACING = 190;
+const BLOCK_SPACING = 171;
 let availableBlocks = [];
 
 let activeBlock = null;
@@ -112,6 +116,24 @@ canvas.addEventListener("touchend", (e) => {
   e.preventDefault();
   dropBlock();
 }, { passive: false });
+
+settingsButton.addEventListener("click", () => {
+  const isOpen = !settingsMenu.hidden;
+  settingsMenu.hidden = isOpen;
+  settingsButton.setAttribute("aria-expanded", String(!isOpen));
+});
+
+settingsHelp.addEventListener("click", () => {
+  settingsMenu.hidden = true;
+  settingsButton.setAttribute("aria-expanded", "false");
+  showHowToPlay();
+});
+
+settingsReset.addEventListener("click", () => {
+  settingsMenu.hidden = true;
+  settingsButton.setAttribute("aria-expanded", "false");
+  resetGame();
+});
 
 // ─── Shared Pick / Drop Logic ───────────────────────────────────────────────
 
@@ -265,8 +287,13 @@ function resetGame() {
 }
 
 function handleCanvasControl(x, y) {
+  // Help icon in the top-left of the game panel.
+  if (x >= 35 && x <= 130 && y >= 20 && y <= 105) {
+    showHowToPlay();
+    return true;
+  }
   // Reset icon in the top-right of the game panel.
-  if (x >= 500 && x <= 585 && y >= 55 && y <= 150) {
+  if (x >= 470 && x <= 565 && y >= 20 && y <= 105) {
     resetGame();
     return true;
   }
@@ -328,33 +355,32 @@ function drawGameHeader() {
   ctx.shadowBlur = 14;
   ctx.fillStyle = "#ffffff";
   ctx.beginPath();
-  ctx.arc(82, 92, 29, 0, Math.PI * 2);
+  ctx.arc(82, 60, 29, 0, Math.PI * 2);
   ctx.fill();
   ctx.beginPath();
-  ctx.arc(518, 92, 29, 0, Math.PI * 2);
+  ctx.arc(518, 60, 29, 0, Math.PI * 2);
   ctx.fill();
   ctx.restore();
 
   ctx.fillStyle = "#13c969";
   ctx.font = "900 34px Outfit, sans-serif";
-  ctx.fillText("?", 82, 92);
+  ctx.fillText("?", 82, 60);
   ctx.font = "900 31px Outfit, sans-serif";
-  ctx.fillText("↻", 518, 92);
+  ctx.fillText("↻", 518, 60);
 
   ctx.fillStyle = "#71887a";
   ctx.font = "700 13px Outfit, sans-serif";
-  ctx.fillText("How to Play", 82, 138);
-  ctx.fillText("Reset", 518, 138);
+  ctx.fillText("How to Play", 82, 108);
+  ctx.fillText("Reset", 518, 108);
 
-  ctx.fillStyle = "#ffbc21";
-  ctx.font = "900 31px Outfit, sans-serif";
-  ctx.fillText("♛", 248, 95);
+  ctx.font = "27px 'Apple Color Emoji', 'Segoe UI Emoji', sans-serif";
+  ctx.fillText("👑", 248, 61);
   ctx.fillStyle = "#728378";
   ctx.font = "800 19px Outfit, sans-serif";
-  ctx.fillText("Best Score", 337, 93);
+  ctx.fillText("Best Score", 337, 61);
   ctx.fillStyle = "#10c962";
   ctx.font = "900 47px Outfit, sans-serif";
-  ctx.fillText(String(Math.max(bestScore, 400)), 300, 132);
+  ctx.fillText(String(Math.max(bestScore, 400)), 300, 100);
 }
 
 gameLoop();

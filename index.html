@@ -45,7 +45,13 @@
           <input type="text" readonly id="bestScore" value="0" />
         </div>
       </div>
-      <button class="settings-button" type="button" aria-label="Game settings">&#9881;</button>
+      <div class="settings-wrap">
+        <button class="settings-button" id="settingsButton" type="button" aria-label="Game settings" aria-expanded="false">⚙️</button>
+        <div class="settings-menu" id="settingsMenu" hidden>
+          <button type="button" id="settingsHelp">How to play</button>
+          <button type="button" id="settingsReset">New game</button>
+        </div>
+      </div>
     </header>
 
     <!-- Game Canvas — fills everything below HUD -->

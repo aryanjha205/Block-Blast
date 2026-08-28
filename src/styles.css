@@ -200,6 +200,11 @@ canvas {
   -webkit-tap-highlight-color: transparent;
 }
 
+.settings-wrap {
+  position: relative;
+  flex: 0 0 38px;
+}
+
 .settings-button {
   flex: 0 0 38px;
   width: 38px;
@@ -208,10 +213,39 @@ canvas {
   border-radius: 50%;
   background: #fff;
   color: var(--green);
-  font-size: 1.45rem;
+  font-family: 'Apple Color Emoji', 'Segoe UI Emoji', var(--font), sans-serif;
+  font-size: 1.25rem;
   line-height: 1;
   box-shadow: 0 2px 12px rgba(0, 150, 60, .15);
 }
+
+.settings-menu {
+  position: absolute;
+  z-index: 30;
+  top: 46px;
+  right: 0;
+  width: 130px;
+  padding: 7px;
+  border: 1px solid #def2e5;
+  border-radius: 12px;
+  background: #fff;
+  box-shadow: 0 10px 24px rgba(19, 121, 68, .16);
+}
+
+.settings-menu button {
+  display: block;
+  width: 100%;
+  padding: 9px 8px;
+  border: 0;
+  border-radius: 8px;
+  background: transparent;
+  color: #347154;
+  font: 700 .78rem var(--font);
+  text-align: left;
+  cursor: pointer;
+}
+
+.settings-menu button:hover { background: #effbf3; }
 
 /* ── Desktop / Tablet ────────────────────────────────── */
 @media (min-width: 700px) {
@@ -285,6 +319,18 @@ canvas {
 
 .modal-overlay.active .modal { transform: translateY(0); }
 
+.help-modal::after {
+  content: '🧩';
+  font-family: 'Apple Color Emoji', 'Segoe UI Emoji', sans-serif;
+}
+.help-copy {
+  margin: 0 auto 24px;
+  max-width: 330px;
+  color: var(--text-sub);
+  font-size: 1rem;
+  line-height: 1.5;
+}
+
 /* Drag handle */
 .modal::before {
   content: '';
@@ -300,6 +346,7 @@ canvas {
 .modal::after {
   content: '💥';
   display: block;
+  font-family: 'Apple Color Emoji', 'Segoe UI Emoji', sans-serif;
   font-size: 3rem;
   margin-bottom: 8px;
 }
