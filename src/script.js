@@ -15,6 +15,7 @@ import {
 } from "./gameFunctions.js";
 import { BLOCK_SHAPES } from "./blocks.js";
 import { createGameOverModal, showHowToPlay, showModal } from "./modal.js";
+import "./ads.js";
 
 const canvas = document.getElementById("gameCanvas");
 const ctx = canvas.getContext("2d");

@@ -25,7 +25,7 @@
     <!-- HUD Bar -->
     <header class="hud">
       <div class="hud-logo">
-        <span class="hud-cube"><i></i></span>
+        <span class="hud-cube"><img src="/assets/blockblast-cube.png" alt="" /></span>
         <span class="hud-name">Block<b>Blast</b></span>
       </div>
 
@@ -58,6 +58,9 @@
     <main class="game-wrap">
       <canvas id="gameCanvas" width="600" height="850" aria-label="Block Blast game board"></canvas>
     </main>
+
+    <!-- Sponsored banner: visually isolated from the game and hidden on short screens. -->
+    <div id="ad-platform-panel" aria-live="polite"></div>
 
     <script type="module" src="./src/script.js"></script>
   </body>
