@@ -201,9 +201,10 @@ canvas {
 #ad-platform-panel {
   position: fixed;
   z-index: 50;
-  right: max(12px, var(--si-right));
+  left: 50%;
   bottom: max(12px, var(--si-bottom));
   width: min(330px, calc(100vw - 24px));
+  transform: translateX(-50%);
 }
 
 .ad-banner {

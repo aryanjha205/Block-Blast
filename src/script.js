@@ -363,11 +363,22 @@ function drawGameHeader() {
   ctx.fillText("How to Play", 82, 108);
   ctx.fillText("Reset", 518, 108);
 
+  // Lay out the title row as one measured visual group, then center the score below it.
+  const scoreLabel = "Best Score";
+  const scoreCenter = 300;
+  const crownWidth = 30;
+  const crownGap = 8;
+  ctx.font = "800 19px Outfit, sans-serif";
+  const titleWidth = ctx.measureText(scoreLabel).width;
+  const groupLeft = scoreCenter - (crownWidth + crownGap + titleWidth) / 2;
+
+  ctx.textAlign = "left";
   ctx.font = "27px 'Apple Color Emoji', 'Segoe UI Emoji', sans-serif";
-  ctx.fillText("👑", 248, 61);
+  ctx.fillText("👑", groupLeft, 61);
   ctx.fillStyle = "#728378";
   ctx.font = "800 19px Outfit, sans-serif";
-  ctx.fillText("Best Score", 337, 61);
+  ctx.fillText(scoreLabel, groupLeft + crownWidth + crownGap, 61);
+  ctx.textAlign = "center";
   ctx.fillStyle = "#10c962";
   ctx.font = "900 47px Outfit, sans-serif";
   ctx.fillText(String(Math.max(bestScore, 400)), 300, 100);
